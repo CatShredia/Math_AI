@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+
+    text-decoration: none;
+}
+
+.container {
+    padding: 15px 30px;
+}
+
+.main__inner {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
