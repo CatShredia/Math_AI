@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const requestText = document.getElementById("requestText");
   const textElement = document.querySelector(".text");
 
+  // Загрузка сохраненных данных при загрузке страницы
+  const savedData = localStorage.getItem("deepseekChatHistory");
+  if (savedData) {
+    textElement.innerHTML = savedData; // Отображаем сохраненную историю
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -23,10 +29,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      const html = data.response; // Ответ уже в формате HTML
+      const html = data.response;
 
-      // Отображаем HTML в элементе
-      textElement.innerHTML = html;  // Использовать innerHTML вместо textContent
+      // Добавляем новый запрос и ответ к существующей истории
+      const newEntry = `<div class="request"><strong>You:</strong> ${message}</div><div class="response">${html}</div>`;
+      textElement.innerHTML += newEntry; // Добавляем к существующему содержимому
+
+      // Сохраняем обновленную историю в localStorage
+      localStorage.setItem("deepseekChatHistory", textElement.innerHTML);
+
     } catch (error) {
       console.error("Error fetching response:", error);
       textElement.textContent = "Error getting response from the server.";
