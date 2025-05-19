@@ -19,6 +19,7 @@
     gap: 10px;
 }
 
+/* ? input */
 button {
     padding: 5px 10px;
 
@@ -32,5 +33,19 @@ button {
 
 button:hover {
     background-color: blue;
+    color: white;
+}
+
+/* ? output */
+.output {
+    background-color: #f2f1ed;
+
+    max-width: max-content;
+}
+pre {
+    background-color: rgb(0, 0, 0);
+}
+
+code {
     color: white;
 }

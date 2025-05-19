@@ -7,6 +7,15 @@ const OpenAI = require("openai");
 require("dotenv").config(); // Загрузите переменные окружения
 const cors = require("cors"); // Импортируйте cors
 
+const showdown  = require('showdown');
+const converter = new showdown.Converter({
+  simplifiedAutoLink: true,
+  excludeTrailingPunctuationFromURLs: true,
+  literalMidWordUnderscores: true,
+  strikethrough: true,
+  tables: true,
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json()); // Для разбора тела запросов в формате JSON
 app.use(cors()); // Добавьте cors middleware
@@ -31,11 +40,13 @@ async function getResponseFromAI(userMessage) {
         { role: "user", content: userMessage }
       ],
       temperature: 0.7,
-      max_tokens: 150
+      max_tokens: 1500
     });
 
     console.log("AI response:", response.choices[0].message.content);
-    return response.choices[0].message.content;
+    const html = converter.makeHtml(response.choices[0].message.content);
+
+    return html;
   } catch (error) {
     console.error("\tError:", error.message);
     throw error; // Перебрасываем ошибку для обработки в вызывающем коде

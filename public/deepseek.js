@@ -5,13 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const textElement = document.querySelector(".text");
 
   form.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Предотвращаем перезагрузку страницы
+    event.preventDefault();
 
     const message = requestText.value;
 
     try {
       const response = await fetch("http://localhost:8000/ask", {
-        // Замените, если ваш сервер на другом адресе
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -24,7 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      textElement.textContent = data.response; // Отображаем ответ от сервера
+      const html = data.response; // Ответ уже в формате HTML
+
+      // Отображаем HTML в элементе
+      textElement.innerHTML = html;  // Использовать innerHTML вместо textContent
     } catch (error) {
       console.error("Error fetching response:", error);
       textElement.textContent = "Error getting response from the server.";

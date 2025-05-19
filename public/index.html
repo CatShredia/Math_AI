@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>math_ai application</title>
 
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
+  <body>
     <main class="main">
-        <div class="container">
-            <div class="main__inner">
-                <h2>math_ai</h2>
-                <form class="form">
-                    <input type="text" name="requestText" id="requestText">
-                    <button type="submit">OK</button>
-                </form>
+      <div class="container">
+        <div class="main__inner">
+          <h2>math_ai</h2>
+          <form class="form">
+            <input type="text" name="requestText" id="requestText" />
+            <button type="submit">OK</button>
+          </form>
 
-                <p class="text">ответ</p>
-            </div>
+          <p
+            class="text output"
+            style="display: flex; flex-direction: column; gap: 8px"
+          >
+            ответ
+          </p>
         </div>
+      </div>
     </main>
     <script src="deepseek.js"></script>
-</body>
-
+  </body>
 </html>
