@@ -1,13 +1,27 @@
 import { createWorker } from "tesseract.js";
+import fs from "fs";
 
-const worker = await createWorker("ru");
+const imagePath = "./public/rec/Алгебра подстановок/IMG20250512144434.jpg";
 
 (async () => {
-  const {
-    data: { text }
-  } = await worker.recognize(
-    "https://tesseract.projectnaptha.com/img/eng_bw.png"
-  );
-  console.log(text);
-  await worker.terminate();
+  let worker;
+  try {
+    worker = await createWorker("rus");
+
+    if (!fs.existsSync(imagePath)) {
+      console.error(`Файл не найден: ${imagePath}`);
+      return;
+    }
+
+    const {
+      data: { text }
+    } = await worker.recognize(imagePath);
+    console.log(text);
+  } catch (error) {
+    console.error("Ошибка OCR:", error);
+  } finally {
+    if (worker) {
+      await worker.terminate();
+    }
+  }
 })();
